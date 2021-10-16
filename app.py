@@ -22,7 +22,7 @@ def index():
         cond = curr['current']
         
         details = {
-            'location': f"{loc['name']},{loc['region']},{loc['country']}",
+            'location': f"{loc['name']}, {loc['region']}, {loc['country']}",
             'icon' : cond['condition']['icon'],
             'condition': cond['condition']['text'],
             'temp': cond["temp_c"],
