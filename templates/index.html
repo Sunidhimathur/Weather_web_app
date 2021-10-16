@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Merriweather?category=Serif,Sans+Serif,Display&stylecount=4&thickness=4">
+    <title>Weather</title>
+    <center>
+    <h1>Welcome to the Weather App!</h1>
+    <img src="./static/weather.png" alt="weather" height="200px">
+    <h2>What's the weather today?</h2>
+    <h2>Search for a city to begin!</h2>
+    <br><br>
+    </center>
+</head>
+<body>
+    <center>
+    <section>
+        <form method="POST", >
+            <input type="text", name="city", placeholder="City Name">
+            <input type="submit", value="Search">
+        </form>
+    </section>
+    </center>
+
+    {% with msgs = get_flashed_messages() %}
+    {% if msgs %}
+        {% for msg in msgs %}
+        <h2>{{msg}}</h2>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% if details %}
+    <div class="grid-container">
+    <section>
+        <h2>{{details.location}}</h2>
+        <img src="{{details.icon}}" alt="" width="200px" height="200px">
+        <h3><em>{{details.condition}}</em></h3>
+        <h3>Temperature : {{details.temp}} C</h3>
+        <h3>Wind : {{details.wind}}</h3>
+        <h3>Humidity : {{details.humidity}}</h3>
+        <h3>Precipitaion : {{details.precipitation}}</h3>
+    </section>
+    </div>
+    
+    <div class="grid-container"> 
+    {% for day in forecast_days %}
+    <section>  
+        <h2>{{day.date}}</h2>
+        <img src="{{day.icon}}" alt="" width="200px" height="200px">
+        <h3>{{day.condition}}</h3>
+        <h3>Temperature : {{day.temp}}</h3>
+        <h3>Chance of Rain : {{day.rain_chance}}%</h3>
+        <h3>Humidity : {{day.humidity}}</h3>
+        <h3>UV : {{day.uv}}</h3>  
+    </section>
+    {% endfor %}
+    {% else %}
+    {% endif %}
+    </div>  
+</body>
+</html>
